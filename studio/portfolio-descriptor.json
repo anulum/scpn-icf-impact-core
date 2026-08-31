@@ -10,6 +10,11 @@
       "evidence_maturity": "computational_prototype",
       "evidence_pointer": "VALIDATION.md#device-configuration-model",
       "identifier": "device_configuration_model"
+    },
+    {
+      "evidence_maturity": "computational_prototype",
+      "evidence_pointer": "VALIDATION.md#diagnostic-and-clock-semantics",
+      "identifier": "diagnostic_clock_semantics"
     }
   ],
   "configurations": [
@@ -51,7 +56,7 @@
     "manifest_path": "reactor-domain.json",
     "manifest_schema": "scpn.reactor-domain.v1",
     "manifest_schema_version": "1.0.0",
-    "manifest_sha256": "575e4a90ab4a8a5cb2c426b64ab1ae382bb91f3aec08a64053ed0587aa3d3371",
+    "manifest_sha256": "587b88857cc7a1d3014e019b7e5e110b6424608e7bdb5fd8c838d9e583d6ce36",
     "repository": "SCPN-ICF-IMPACT-CORE"
   },
   "spo_registry": {
