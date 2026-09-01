@@ -8,6 +8,11 @@ Contact: www.anulum.li | protoscience@anulum.li
 SCPN ICF Impact Core — README
 -->
 
+<div align="center">
+  <img src="docs/assets/repo_header.png"
+       alt="SCPN ICF Impact Core — Kinetic Energy As The Driver">
+</div>
+
 # SCPN ICF Impact Core
 
 Governed device-family repository for projectile- and impact-driven
