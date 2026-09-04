@@ -71,6 +71,11 @@ REQUIRED_PATHS = (
     "src/scpn_icf_impact_core/physics/fuel.py",
     "src/scpn_icf_impact_core/physics/level0.py",
     "src/scpn_icf_impact_core/physics/projectile.py",
+    "docs/adr/0006-device-3d-and-cad-models.md",
+    "docs/DEVICE_3D_MODEL_CONTRACT.md",
+    "src/scpn_icf_impact_core/geometry/__init__.py",
+    "src/scpn_icf_impact_core/geometry/cad.py",
+    "src/scpn_icf_impact_core/geometry/model.py",
     "studio/portfolio-descriptor.json",
     "studio/portfolio-descriptor.schema.json",
     "tools/preflight.py",
@@ -147,6 +152,16 @@ def test_manifest_declares_exact_configuration_assignment() -> None:
             "evidence_maturity": "computational_prototype",
             "evidence_pointer": "VALIDATION.md#level-0-device-physics",
         },
+        {
+            "identifier": "device_3d_model",
+            "evidence_maturity": "computational_prototype",
+            "evidence_pointer": "VALIDATION.md#device-3d-model",
+        },
+        {
+            "identifier": "device_cad_model",
+            "evidence_maturity": "computational_prototype",
+            "evidence_pointer": "VALIDATION.md#device-cad-model",
+        },
     ]
     assert manifest["claims"] == []
 
@@ -161,7 +176,7 @@ def test_descriptor_and_inventory_embed_current_manifest_digest() -> None:
     assert descriptor["source"]["manifest_sha256"] == digest
     assert inventory["source"]["manifest_sha256"] == digest
     assert descriptor["lifecycle"]["state"] == "not_federated"
-    assert inventory["implemented_capability_count"] == 3
+    assert inventory["implemented_capability_count"] == 5
 
 
 def test_no_agent_state_trees_exist() -> None:
@@ -203,3 +218,68 @@ def test_package_agrees_with_manifest_truth() -> None:
 def test_typed_package_marker_exists() -> None:
     """The PEP 561 marker is present (empty by design, so no size check)."""
     assert (REPO / "src" / "scpn_icf_impact_core" / "py.typed").is_file()
+
+
+def test_kernel_library_pin_agrees_with_the_dependency_and_the_workflows() -> None:
+    """One commit, one version, one kernel set: manifest, pyproject, CI.
+
+    The pin lives in the manifest and the dependency lives in the project
+    metadata, and nothing but this test makes the two agree. **The
+    manifest validator does not inspect the field**; that gap is a
+    fleet-wide finding this repository joins rather than resolves
+    locally, and resolving it is an owner-authorised change to the shared
+    standard.
+
+    The kernel list is this repository's own, reached by following what
+    the two geometry modules import rather than by copying a sibling's.
+    It happens to match the laser family's twelve and it is not the beam
+    family's eleven: both this family and the laser family draw a body
+    with no curved surface, so both consume the primitives kernel, and
+    the beam family draws only spheres and does not.
+
+    This repository is pinned one commit ahead of every other consumer,
+    at the commit that added the rectangular prism. Mixed pins across the
+    group are structurally fine — each repository holds its own pin
+    against its own manifest — and moving a pin that had no reason to
+    move is what broke six repositories earlier in this rollout.
+    """
+    import tomllib
+
+    import scpn_reactor_kernels
+
+    manifest = load_json_object(REPO / "reactor-domain.json")
+    pin = manifest["kernel_library"]
+    assert pin["distribution"] == "scpn-reactor-kernels"
+    assert pin["kernels"] == [
+        "cad_brep_solids",
+        "cad_evidence",
+        "cad_faceting",
+        "cad_profiles",
+        "cad_spheres",
+        "cad_step_export",
+        "geometry_mesh_contract",
+        "geometry_primitives",
+        "geometry_profiles",
+        "geometry_spheres",
+        "geometry_unit_circle",
+        "numerics_transcendental",
+    ]
+    assert pin["kernels"] == sorted(set(pin["kernels"]))
+    assert "geometry_primitives" in pin["kernels"]
+    project = tomllib.loads((REPO / "pyproject.toml").read_text(encoding="utf-8"))
+    assert project["project"]["dependencies"] == [
+        (
+            "scpn-reactor-kernels @ git+https://github.com/anulum/"
+            f"scpn-reactor-kernels.git@{pin['source_commit']}"
+        )
+    ]
+    assert project["project"]["optional-dependencies"]["cad"] == [
+        (
+            "scpn-reactor-kernels[cad] @ git+https://github.com/anulum/"
+            f"scpn-reactor-kernels.git@{pin['source_commit']}"
+        )
+    ]
+    assert scpn_reactor_kernels.__version__ == pin["version"]
+    workflows = REPO / ".github" / "workflows"
+    for name in ("reusable-static-policy.yml", "reusable-tests.yml", "pre-commit.yml"):
+        assert "pip install -e" in (workflows / name).read_text(encoding="utf-8"), name

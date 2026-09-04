@@ -22,7 +22,7 @@ truth for the `projectile_or_impact_icf` configuration of the SCPN Phase
 Orchestrator reactor registry (impact-driven target).
 
 **Evidence maturity: `computational_prototype`** (per-capability; ADR 0002).
-Three capabilities are implemented: the device configuration model —
+Five capabilities are implemented: the device configuration model —
 validated parameter objects with documented consistency estimates,
 canonical serialisation, and a data-only SPO registry pin
 (evidence: `VALIDATION.md#device-configuration-model`); the
@@ -34,9 +34,13 @@ physics — what a flying plate carries onto the target it strikes, what
 the fuel is in each of the two target geometries a freely published
 workshop proceedings describes, and where that fuel ends up when it is
 compressed (ADR 0005, evidence:
-`VALIDATION.md#level-0-device-physics`). No parameter set or
-channel describes any real machine or diagnostic; the claim inventory
-is empty and verified by the domain validator.
+`VALIDATION.md#level-0-device-physics`); and the two geometry tiers —
+the tessellated and B-rep models of **both** published schemes on the
+shared kernel library, each in its own frame, because no filed source
+pairs them (ADR 0006, evidence: `VALIDATION.md#device-3d-model` and
+`VALIDATION.md#device-cad-model`). No parameter set, channel or body
+describes any real machine or diagnostic; the claim inventory is empty
+and verified by the domain validator.
 
 ## Scope
 

@@ -9,14 +9,18 @@
 """Device capability models of the SCPN impact-ICF device family.
 
 Public surface of the ``device_configuration_model``,
-``diagnostic_clock_semantics`` and ``level0_device_physics``
-capabilities at ``computational_prototype`` maturity: validated
-parameter objects, synthetic diagnostic and clock declarations aligned
-with the pinned SPO observability catalogue, what a flying plate carries
-onto the target it strikes and where the fuel of each published target
-geometry ends up when it is compressed, documented consistency
+``diagnostic_clock_semantics``, ``level0_device_physics``,
+``device_3d_model`` and ``device_cad_model`` capabilities at
+``computational_prototype`` maturity: validated parameter objects,
+synthetic diagnostic and clock declarations aligned with the pinned SPO
+observability catalogue, what a flying plate carries onto the target it
+strikes and where the fuel of each published target geometry ends up
+when it is compressed, the tessellated and B-rep models of **both**
+published schemes on the shared kernel library, documented consistency
 estimates, canonical serialisation with SHA-256 digests, and data-only
-pins to the SPO registries. No claim about any real machine or
+pins to the SPO registries. The two schemes come from two papers of one
+proceedings and no filed source pairs them, so they are carried side by
+side and never as one machine. No claim about any real machine or
 diagnostic is made anywhere in this package.
 """
 
@@ -33,7 +37,32 @@ from scpn_icf_impact_core.configuration import (
     configuration_from_bytes,
     configuration_from_record,
 )
-from scpn_icf_impact_core.errors import DeviceConfigurationError, DiagnosticPlanError
+from scpn_icf_impact_core.errors import (
+    DeviceConfigurationError,
+    DeviceGeometryError,
+    DiagnosticPlanError,
+)
+from scpn_icf_impact_core.geometry import (
+    BODY_DRIVER_PLATE,
+    BODY_FUEL_SLAB,
+    BODY_FUEL_SPHERE,
+    BODY_NAMES_BY_SCHEME,
+    CAD_MODEL_NON_CLAIMS,
+    CAD_MODEL_SCHEMA,
+    CAD_MODEL_SCHEMA_VERSION,
+    MODEL_NON_CLAIMS,
+    MODEL_SCHEMA,
+    MODEL_SCHEMA_VERSION,
+    SCHEME_CONVERGENT,
+    SCHEME_PLANE,
+    SCHEMES_BY_IDENTIFIER,
+    DeviceModel3D,
+    DeviceModelCAD,
+    build_convergent_cad,
+    build_convergent_model,
+    build_plane_cad,
+    build_plane_model,
+)
 from scpn_icf_impact_core.observability import (
     APPLICABLE_CANDIDATES,
     CATALOGUE_BINDING,
@@ -82,12 +111,25 @@ __version__: Final = "0.1.0.dev0"
 
 __all__ = [
     "APPLICABLE_CANDIDATES",
+    "BODY_DRIVER_PLATE",
+    "BODY_FUEL_SLAB",
+    "BODY_FUEL_SPHERE",
+    "BODY_NAMES_BY_SCHEME",
+    "CAD_MODEL_NON_CLAIMS",
+    "CAD_MODEL_SCHEMA",
+    "CAD_MODEL_SCHEMA_VERSION",
     "CATALOGUE_BINDING",
     "IMPACT_VELOCITY_FLOOR_KM_S",
     "LEVEL0_NON_CLAIMS",
     "LEVEL0_SCHEMA",
     "LEVEL0_SCHEMA_VERSION",
+    "MODEL_NON_CLAIMS",
+    "MODEL_SCHEMA",
+    "MODEL_SCHEMA_VERSION",
     "OWNED_CONFIGURATIONS",
+    "SCHEMES_BY_IDENTIFIER",
+    "SCHEME_CONVERGENT",
+    "SCHEME_PLANE",
     "CandidateProfile",
     "ClockKind",
     "ClockModel",
@@ -96,6 +138,9 @@ __all__ = [
     "DeferredCandidate",
     "DeviceConfiguration",
     "DeviceConfigurationError",
+    "DeviceGeometryError",
+    "DeviceModel3D",
+    "DeviceModelCAD",
     "DiagnosticChannelPlan",
     "DiagnosticPlan",
     "DiagnosticPlanError",
@@ -114,6 +159,10 @@ __all__ = [
     "SemanticCarrier",
     "TargetDeclaration",
     "__version__",
+    "build_convergent_cad",
+    "build_convergent_model",
+    "build_plane_cad",
+    "build_plane_model",
     "compression_ratio",
     "configuration_from_bytes",
     "configuration_from_record",

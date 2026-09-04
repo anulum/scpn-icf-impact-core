@@ -14,6 +14,28 @@ SCPN ICF Impact Core — CHANGELOG
 
 ### Added
 
+- Device 3D and CAD models (`device_3d_model`, `device_cad_model`,
+  `computational_prototype`, ADR 0006): tier-G1 tessellated and tier-G2
+  B-rep models of **both** target schemes the cited proceedings
+  describe, built on the shared kernel library. The two schemes are two
+  models in two frames with no transformation between them, because no
+  filed source pairs them; the plane scheme draws a driver plate and a
+  fuel slab, the convergent scheme a fuel sphere, and neither a cone nor
+  a projectile for the convergent target is drawn because nothing
+  dimensions either. Every resolution was measured on this family's own
+  bodies rather than inherited: the ring regime was scanned count by
+  count, the first refusal is asserted at the step immediately above the
+  default, and the linear deflection threshold is computed exactly and
+  confirmed on both sides. The plane scheme carries no resolution at
+  all, because a prism is faceted exactly at every deflection the
+  back-end accepts, and its builders take no such argument. Consumer
+  contract: `docs/DEVICE_3D_MODEL_CONTRACT.md`.
+- Dependency on the shared kernel library `scpn-reactor-kernels`, pinned
+  by commit in the project metadata, in `reactor-domain.json` with the
+  kernel inventory digest, and in a repository contract test that holds
+  all three to one commit. Tier G2 is behind an optional `cad` extra
+  naming the same commit.
+
 - Level-0 device physics (`level0_device_physics`,
   `computational_prototype`, ADR 0005): what a flying plate carries onto
   the target it strikes, what the fuel is in a plane slab and in a

@@ -305,3 +305,156 @@ Boundaries:
 - No value describes, approximates or validates any real machine or
   shot; an anchor reproduces a number a filed source prints and nothing
   further.
+
+## Device 3D model
+
+`src/scpn_icf_impact_core/geometry/model.py`. Tier G1: analytic surfaces
+tessellated on the shared kernel library, in **two** models, because the
+filed proceedings describe two schemes and pair neither with the other.
+Design record: ADR 0006. Consumer contract:
+`docs/DEVICE_3D_MODEL_CONTRACT.md`.
+
+### What is built
+
+| Scheme | Bodies | Frame origin |
+|---|---|---|
+| `plane` | `driver_plate`, `fuel_slab` | the impact face |
+| `convergent` | `fuel_sphere` | the centre of the target |
+
+Neither model contains the other's bodies, and no transformation between
+the two frames exists anywhere in this repository. Within the plane
+scheme the plate lies behind the impact face and the target ahead of it,
+meeting at the origin, because the worked case's own figure places them
+so and prints no standoff.
+
+### What is anchored, recovered from the built bodies
+
+Each of these is measured on the tessellated body, not read back out of
+the declaration it was built from.
+
+| Quantity | Built body gives | Printed | Status |
+|---|---|---|---|
+| cross-section, both plane bodies, both axes | 1.0 cm | 1 cm × 1 cm | exact |
+| target fuel thickness | 1.0 cm | 1 cm | exact |
+| plate thickness | 2.7659574e-3 cm | 2.7e-3 cm | **floor** (rounding gives 2.8e-3) |
+| plate mass at the printed uranium density | 52.0 mg | — | returns the configuration's own plate mass |
+| target fuel mass at the initial density | — | — | agrees with the level-0 record's `slab_fuel_mass_mg` |
+| convergent target radius | 1.0e-3 m | 1 mm | exact |
+
+### What is declared and said to be declared
+
+- The **squareness** of the plate's face is printed; the level-0
+  relations use only its area, so the shape enters in exactly one
+  function and its docstring says so.
+- The **plate thickness** is computed, never stored: it is obtained from
+  the level-0 relations that own it, so a physics record and a geometry
+  model built from one declaration cannot disagree.
+- The **convergent scheme's polar axis** carries no physical meaning. No
+  source prints a drive direction for that target; the axis is an
+  artefact of building a body of revolution.
+
+### Non-claims, each asserted by a test
+
+- **The two schemes are never one machine.** No filed source pairs them,
+  and they are two models with no common frame for that reason.
+- **No projectile is drawn for the convergent scheme.** The paper that
+  prints that target prints none, and no filed source in this family
+  prints projectile geometry for any three-dimensional scheme.
+- **No cone is drawn.** The volume's conical scheme is four hand-drawn
+  schematics with no cone angle and no dimension of any kind.
+- **No rigid wall, tamper, holder, standoff or enclosure is drawn.** The
+  worked case names a rigid wall and dimensions none of them.
+- **The convergent body is an inscribed polyhedron, not a sphere.** At
+  the declared counts it is 10.17 % smaller than `4/3 π r³`, and a test
+  measures that gap rather than leaving the caveat unexercised. The
+  plane bodies carry no such caveat, because a prism is faceted exactly.
+- **Only the convergent scheme has a resolution.** The plane model
+  carries `None` for both counts, its builder takes neither argument,
+  and a test asserts the absence on the signature itself.
+- No body describes a target during a shot, and no value describes or
+  validates any real machine or shot.
+
+## Device CAD model
+
+`src/scpn_icf_impact_core/geometry/cad.py`. Tier G2: the same bodies as
+exact B-rep solids through the library's `cad` group, checked
+fail-closed against their analytic closed forms and against their
+tier-G1 twins, and exported as normalised STEP bytes with a digest. Two
+schemes, two assemblies, two exports. Requires the optional `cad` extra.
+
+**Every number below was measured on this family's own bodies against
+the pinned library commit `4095aa8`.** No value was inherited from a
+sibling family.
+
+### The convergent scheme: two regimes, both located
+
+| Quantity | Measured |
+|---|---|
+| ring counts that are exact | every count from 4 to 33 |
+| first refusal | **34**, at a volume relative error of 9.80e-5 against a 1e-9 tolerance |
+| above it | 34–54 alternate by parity; from 55 upward every count refuses |
+| declared count | **33**, the top of the first regime |
+| faceted volume relative deficit | 2.244500159e-04 |
+| angular plateau | identical to every digit from 0.2 to 1.0 rad; falls below 0.2 |
+| declared angular deflection | **0.3 rad**, inside the plateau |
+| linear threshold | `deficit · r / 2` = **1.1222500795e-7 m** exactly |
+| declared linear deflection | **2e-7 m**, at 0.5611 of its bound |
+
+The refusal test asserts 34, the step immediately above the default; a
+second test asserts that 35 builds, so the first refusal is not read as
+a ceiling. The threshold was computed and then confirmed at both sides:
+1.1223e-7 m passes at a ratio of 1.0000 and 1.1222e-7 m refuses.
+
+**The angular deflection binds here and did not for the sibling beam
+family**, whose bodies are larger. The declared value sits on the
+plateau, where the deficit is at its maximum over the whole range, so
+the bound established there holds for every finer setting too.
+
+### The plane scheme: nothing to choose, and a two-sided tolerance
+
+The back-end returns **8 vertices and 12 triangles** for each prism at
+every linear deflection it accepts — 1e-7 to 1.0, seven orders — and at
+every angular deflection from 0.01 to 1.0 rad. No deflection changes any
+measure, so both declared values are mesher inputs and bound nothing,
+and the record says so in its non-claims. Below 1e-8 m the mesher
+refuses outright with a numeric error of its own, unrelated to any body
+or bound; the declared 1e-6 m sits two orders above that floor.
+
+**This family's two prisms deviate in opposite directions** — the plate
+by `+2.99e-16` and the target by `−2.12e-16`, in one assembly. It is the
+first consumer in the group whose own bodies show both signs, and it is
+the concrete case that the library's earlier one-sided comparison would
+have admitted at any magnitude. Both are far inside the declared `1e-12`
+planar tolerance, and a test shows that tolerance still refuses a prism
+wrong by one part in ten thousand.
+
+### Two bounds that are not independent
+
+Measured at 8, 16, 24 and 32 reference segments: the absolute margin
+between the mesh difference and its bound is `2.2445e-4` at every one of
+them — exactly the faceted volume deficit. The ratio looks tight at a
+low segment count (0.9977 at eight) and raising the count tightens both
+sides equally. A test states the identity so that nobody tightens the
+wrong knob.
+
+### A refusal the physics cannot make
+
+The level-0 relations validate their inputs, not their results. A plate
+mass of 1e-300 mg with a material density of 1e300 g/cm³ passes every
+declaration and divides to exactly zero thickness. The library refuses
+the degenerate prism and the geometry re-raises it under this package's
+own error type; the handler is live code with a test behind it.
+
+### Non-claims, each asserted by a test
+
+- The plane scheme's deflections bound nothing, and the record says so.
+- The convergent body is a polyhedron of revolution, never an ideal
+  sphere; the frustum stack of its profile is its own analytic
+  reference.
+- Determinism of the STEP bytes is claimed within one pinned back-end
+  environment only, never across back-end versions.
+- Each record identifies only the declarations its scheme actually
+  consumes — the plane scheme two, the convergent scheme none — and
+  refuses to carry a digest for one it does not.
+- No body is an engineering model, no fabrication tolerance is carried,
+  and no value describes or validates any real machine or shot.
