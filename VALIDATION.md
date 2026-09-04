@@ -202,3 +202,106 @@ gate:
   domain (`clk_facility` root, `clk_shot` member); multi-domain rules
   are exercised by test-constructed plans. Scopes are declarations;
   `mapping_state` stays `unmapped`.
+
+## Level-0 device physics
+
+Evidence record of the `level0_device_physics` capability
+(`computational_prototype`; design record:
+`docs/adr/0005-level0-device-physics.md`).
+
+Every anchor below is read from the proceedings this repository cites,
+*Proceedings of the Impact Fusion Workshop*, LA-8000-C (Los Alamos
+Scientific Laboratory, 1979), which is on file and freely published. The
+volume is a scan carrying an optical transcription, so every value was
+read off pages rendered at 170 dpi rather than off the text layer, and
+the scan duplicates some early leaves, so printed-page and document-page
+numbers are both given throughout and do not differ by a constant.
+
+**Two papers in the volume carry geometry and they describe two
+different schemes**: a fully dimensioned plane slab driven by a uranium
+plate, and a solid fuel sphere with no projectile printed for it
+anywhere. The record evaluates each on what its own paper prints, and
+its non-claims state that no filed source pairs them.
+
+What is exercised, all under the 100 % statement-and-branch coverage
+gate:
+
+- What a flying plate carries: its mass per unit of the face it
+  presents, the thickness a chosen material needs to carry that, and the
+  energy the face delivers per unit area.
+- The fuel in both geometries: absolute densities from the printed
+  ratios, the mass and areal density of a slab and of a sphere, and the
+  deuterium-tritium specific energy built from the two nuclear masses
+  and the energy released per reaction rather than carried as a rounded
+  constant.
+- Where the fuel ends up: one-axis compression by conservation of mass,
+  and convergent compression as the cube of a radial factor.
+- A composed record over both schemes, with canonical serialisation
+  (sorted keys, NaN and infinity rejected) and SHA-256 digest identity,
+  naming the digest of the configuration it was built from.
+- Every declared quantity validated where it is declared as well as
+  inside the relation that consumes it.
+
+Anchors — printed values reproduced, and nothing further:
+
+- The plate's areal density, 0.052 g/cm², exactly.
+- The energy the plate's face delivers, 1.04 MJ/cm², to one unit in the
+  last place of a double. Asserted as a bound, because it is one.
+- The compression ratio the two printed end states set, 420.
+- The convergent target's areal density, 2.13 g/cm² against a printed
+  2 g/cm², at the one significant figure that figure carries.
+
+Measured, rather than assumed:
+
+- **The volume truncates rather than rounds, on two independent
+  values.** Its own relation gives a plate thickness of 2.7659e-3 cm and
+  it prints 2.7e-3; mass conservation gives a compressed fuel thickness
+  of 2.3810e-3 cm and it prints 2.3e-3. Rounding would have given
+  2.8e-3 and 2.4e-3, so a test asserting rounding would have failed on
+  both. Both tests assert the truncation and assert that the rounding is
+  a different number.
+- **A driven slab gains no areal density.** Its density rises by exactly
+  the factor its thickness falls by. A converging sphere gains the
+  square of its radial factor instead, and at these declared dimensions
+  the two targets differ by a factor of 1000. That is the convergent
+  paper's objection to the plane scheme, stated as arithmetic.
+- **The printed gas state is self-consistent to one figure.** The
+  ideal-gas law on the printed 10 bar and 300 K gives 0.009466 of the
+  cryogenic density against a printed 0.01, 5.3 % apart. Recorded as a
+  consistency instrument and used as an anchor nowhere, because it
+  assumes an ideal gas of diatomic molecules and the volume states
+  neither.
+
+Printed and **not** reproduced, recorded rather than absorbed into a
+tolerance:
+
+- **The convergent target's mass.** At the cryogenic density the volume
+  prints elsewhere, its 1 mm sphere masses 0.8922 mg against a printed
+  0.84 mg; the printed value needs about 0.2005 g/cm³ instead. The two
+  printed statements about that one sphere do not use the same density,
+  and only its areal density reproduces. No input was adjusted to reach
+  the printed mass, and it anchors nothing.
+- **The energy of a one-gram burn.** The nuclear masses give 337.5 GJ
+  against a printed "nearly 400 GJ", about 19 % apart.
+
+Boundaries:
+
+- **No filed source pairs the two schemes.** The projectile belongs to
+  the plane case; the paper that prints the convergent target prints no
+  projectile for it. A test asserts the record's non-claims say so.
+- **No shock is solved.** The four printed states are connected by
+  relations and an equation of state this repository does not carry. The
+  record takes the first and the fourth; a test asserts only that the
+  printed chain rises monotonically.
+- **No burn-up fraction exists anywhere here.** No filed source prints
+  one and none is invented. What the record carries is the energy a
+  complete burn of each inventory would release, which is an upper bound
+  no target reaches.
+- **The plate-to-fuel mass ratio is reported, not enforced.** The volume
+  solves its own equation for that quantity and states in words that the
+  plate must have sufficient mass; that equation is not carried here, so
+  refusing on a threshold the volume never printed would be an
+  invention.
+- No value describes, approximates or validates any real machine or
+  shot; an anchor reproduces a number a filed source prints and nothing
+  further.

@@ -8,14 +8,16 @@
 
 """Device capability models of the SCPN impact-ICF device family.
 
-Public surface of the ``device_configuration_model`` and
-``diagnostic_clock_semantics`` capabilities at
-``computational_prototype`` maturity: validated parameter objects,
-synthetic diagnostic and clock declarations aligned with the pinned SPO
-observability catalogue, documented consistency estimates, canonical
-serialisation with SHA-256 digests, and data-only pins to the SPO
-registries. No claim about any real machine or diagnostic is made
-anywhere in this package.
+Public surface of the ``device_configuration_model``,
+``diagnostic_clock_semantics`` and ``level0_device_physics``
+capabilities at ``computational_prototype`` maturity: validated
+parameter objects, synthetic diagnostic and clock declarations aligned
+with the pinned SPO observability catalogue, what a flying plate carries
+onto the target it strikes and where the fuel of each published target
+geometry ends up when it is compressed, documented consistency
+estimates, canonical serialisation with SHA-256 digests, and data-only
+pins to the SPO registries. No claim about any real machine or
+diagnostic is made anywhere in this package.
 """
 
 from __future__ import annotations
@@ -51,6 +53,23 @@ from scpn_icf_impact_core.observability import (
     plan_from_record,
 )
 from scpn_icf_impact_core.parameters import Projectile, TargetDeclaration
+from scpn_icf_impact_core.physics import (
+    LEVEL0_NON_CLAIMS,
+    LEVEL0_SCHEMA,
+    LEVEL0_SCHEMA_VERSION,
+    FuelDeclaration,
+    Level0Physics,
+    OperatingPoint,
+    ProjectileDeclaration,
+    SchemeDeclaration,
+    compression_ratio,
+    dt_specific_energy_j_per_g,
+    full_burn_energy_mj,
+    level0_physics,
+    planar_compressed_thickness_cm,
+    spherical_density_ratio,
+    target_radius_cm,
+)
 from scpn_icf_impact_core.plan_envelope import (
     PlanEnvelope,
     envelope_for_plan,
@@ -65,6 +84,9 @@ __all__ = [
     "APPLICABLE_CANDIDATES",
     "CATALOGUE_BINDING",
     "IMPACT_VELOCITY_FLOOR_KM_S",
+    "LEVEL0_NON_CLAIMS",
+    "LEVEL0_SCHEMA",
+    "LEVEL0_SCHEMA_VERSION",
     "OWNED_CONFIGURATIONS",
     "CandidateProfile",
     "ClockKind",
@@ -78,21 +100,33 @@ __all__ = [
     "DiagnosticPlan",
     "DiagnosticPlanError",
     "FrameKind",
+    "FuelDeclaration",
+    "Level0Physics",
     "ObservabilityBinding",
     "ObservabilityClass",
+    "OperatingPoint",
     "PlanEnvelope",
     "Projectile",
+    "ProjectileDeclaration",
     "ReferenceFrame",
     "RegistryBinding",
+    "SchemeDeclaration",
     "SemanticCarrier",
     "TargetDeclaration",
     "__version__",
+    "compression_ratio",
     "configuration_from_bytes",
     "configuration_from_record",
+    "dt_specific_energy_j_per_g",
     "envelope_for_plan",
     "envelope_from_bytes",
     "envelope_from_record",
+    "full_burn_energy_mj",
+    "level0_physics",
     "plan_from_bytes",
     "plan_from_record",
+    "planar_compressed_thickness_cm",
+    "spherical_density_ratio",
+    "target_radius_cm",
     "verify_envelope",
 ]

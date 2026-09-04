@@ -14,6 +14,21 @@ SCPN ICF Impact Core — CHANGELOG
 
 ### Added
 
+- Level-0 device physics (`level0_device_physics`,
+  `computational_prototype`, ADR 0005): what a flying plate carries onto
+  the target it strikes, what the fuel is in a plane slab and in a
+  converging sphere, and where that fuel ends up when it is compressed.
+  Anchored on the freely published workshop proceedings the repository
+  cites, whose two geometry papers describe **two different schemes**;
+  the record evaluates each on what its own paper prints and its
+  non-claims state that no filed source pairs them. Nothing here solves
+  a shock, and no burn-up fraction is invented: the record carries the
+  energy a complete burn of each inventory would release, which is an
+  upper bound and is named one. Two printed values are recorded as not
+  reproduced rather than absorbed — the convergent target's mass, whose
+  two printed statements do not use the same density, and the energy of
+  a one-gram burn.
+
 - Diagnostic-plan depth: per-channel signal inventories, frame
   transformations with a fixed kind-admissibility table and connectivity
   rule, and a clock topology partitioning the physical clocks into rooted
