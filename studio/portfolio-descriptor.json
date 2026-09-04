@@ -71,7 +71,7 @@
     "manifest_path": "reactor-domain.json",
     "manifest_schema": "scpn.reactor-domain.v1",
     "manifest_schema_version": "1.0.0",
-    "manifest_sha256": "017ed14afcc62784a7abb71b754cb4f31ec9ad57ae327dec2ad37a05e98ac68f",
+    "manifest_sha256": "812c99014d39eb64ead7a79b6240bf85c5328c4356130b5d61d4aaa5de1f683a",
     "repository": "SCPN-ICF-IMPACT-CORE"
   },
   "spo_registry": {
