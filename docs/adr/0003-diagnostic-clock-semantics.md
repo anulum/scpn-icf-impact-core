@@ -50,7 +50,14 @@ features), `inertial.resolved_asymmetry_mode` (derived cyclic), and
 4. Timing is fail-closed where physics fixes the bound: the Nyquist
    criterion for cyclic channels, a positive event-timing bound, and
    clock resolution at or below that bound. The device-typical checks
-   are advisory only: the impact-compression asymmetry range 0.1 MHz–1 GHz and the ns-scale projectile-arrival timing (LASL impact-fusion assessment, LA-8000-C, 1979).
+   are advisory only and compare against declared synthetic design bounds:
+   an impact-asymmetry band of 0.1 MHz–1 GHz, a 10 ns projectile-arrival
+   timing bound and a ~10 µs event-duration bound. An earlier version
+   credited them to the LASL impact-fusion workshop proceedings LA-8000-C
+   (1979), which are on file but print neither the band nor the duration
+   bound (they give thermonuclear burn times of 5–10 ns, PDF p. 4,
+   consistent with ns-scale timing), so the attribution does not hold
+   (attribution removed 2026-10-31).
 5. The reference plan mirrors canonical practice with synthetic
    declarations: a projectile-arrival event train (event relative against the launch fiducial), streaked-radiography trajectory and shot-outcome sets (noncyclic), an impact-asymmetry mode set (derived cyclic against the facility clock), and the model-owned synthetic oscillator (simulation clock). Every applicable candidate must be
    planned or explicitly deferred with a reason; every channel is

@@ -428,9 +428,9 @@ class DiagnosticPlan:
                         message=(
                             "declared asymmetry-mode band "
                             f"{channel.max_signal_frequency_hz:.1f} "
-                            "Hz is outside the impact-compression "
-                            "asymmetry range 0.1 MHz-1 GHz "
-                            "(LA-8000-C 1979)"
+                            "Hz is outside the declared impact-asymmetry "
+                            "design band 0.1 MHz-1 GHz (synthetic; not "
+                            "printed in the source on file)"
                         ),
                     )
                 )
@@ -444,9 +444,9 @@ class DiagnosticPlan:
                         field=f"channels[{channel.identifier}].timing_uncertainty_s",
                         message=(
                             f"timing uncertainty {channel.timing_uncertainty_s:.2e} s"
-                            " is coarser than the ns-scale "
-                            "projectile-arrival timing "
-                            "(LA-8000-C 1979)"
+                            " is coarser than the declared 10 ns "
+                            "projectile-arrival design bound (synthetic; "
+                            "not printed in the source on file)"
                         ),
                     )
                 )
@@ -457,8 +457,8 @@ class DiagnosticPlan:
                         message=(
                             "acquisition window "
                             f"{channel.acquisition_duration_s:.2e} s is "
-                            "longer than the impact-ICF event scale of up to "
-                            "~10 us (LA-8000-C 1979)"
+                            "longer than the declared ~10 us event-duration "
+                            "bound (synthetic; not printed in the source on file)"
                         ),
                     )
                 )

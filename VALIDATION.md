@@ -119,8 +119,14 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
   release is rejected.
 - A reference plan mirroring canonical practice with synthetic
   declarations: impact-timing train, trajectory radiography, asymmetry mode set, shot-outcome set, synthetic oscillator, each bound to its clock domain.
-- Documented advisory band and timing checks with their sources stated
-  in the code: impact-asymmetry bands of 0.1 MHz–1 GHz and ns-scale projectile timing (LA-8000-C 1979); findings are reported, never clamped.
+- Advisory checks against declared synthetic design bounds: an
+  impact-asymmetry band of 0.1 MHz–1 GHz, a 10 ns projectile-arrival timing
+  bound and a ~10 µs event-duration bound. They were earlier credited to the
+  LASL impact-fusion workshop proceedings LA-8000-C (1979), which are on
+  file but print neither the band nor the duration bound (they give
+  thermonuclear burn times of 5–10 ns, PDF p. 4, consistent with ns-scale
+  timing), so the attribution does not hold; the attribution was removed
+  (2026-10-31). Findings are reported, never clamped.
 - Canonical serialisation (sorted keys, NaN/infinity rejected on both
   emit and parse), SHA-256 digest identity, and a strict round-trip
   parser that refuses unknown fields.
