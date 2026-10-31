@@ -12,6 +12,16 @@ SCPN ICF Impact Core — CHANGELOG
 
 ## [Unreleased]
 
+### Fixed
+
+- The triton mass in `physics/fuel.py` was mistyped (3.01550941034 u,
+  2.9e-6 relative above any CODATA value) and the deuteron mass was the
+  CODATA 2018 value beside a CODATA 2022 mass unit. Both are now CODATA 2022
+  and named; the D-T specific energy and every full-burn energy rise by
+  1.7e-6 relative. The 17.59 MeV release is named as the CODATA 2022
+  Q-value rounded, and the molecule mass states that it leaves out the
+  electrons.
+
 ### Security
 
 - `configuration_from_bytes` refuses duplicate JSON members and any document

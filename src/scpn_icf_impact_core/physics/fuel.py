@@ -47,10 +47,16 @@ ATOMIC_MASS_UNIT_KG: Final = 1.66053906892e-27
 MEGAELECTRONVOLT_J: Final = 1.602176634e-13
 #: Boltzmann constant in joules per kelvin, exact under the 2019 SI.
 BOLTZMANN_CONSTANT_J_PER_K: Final = 1.380649e-23
-#: Deuteron and triton masses in atomic mass units.
-DEUTERON_MASS_U: Final = 2.013553212745
-TRITON_MASS_U: Final = 3.01550941034
-#: Energy released by one D + T -> alpha + n reaction, in MeV.
+#: Deuteron and triton masses in atomic mass units (CODATA 2022, the same
+#: edition as the atomic mass unit above). Until 2026-10-31 the deuteron
+#: carried the CODATA 2018 value and the triton a mistyped one (2.9e-6
+#: relative high); the specific energy rose by 1.7e-6 relative with the
+#: correction.
+DEUTERON_MASS_U: Final = 2.013553212544
+TRITON_MASS_U: Final = 3.01550071597
+#: Energy released by one D + T -> alpha + n reaction, in MeV: the Q-value
+#: from the CODATA 2022 deuteron, triton, alpha and neutron masses is
+#: 17.5892 MeV; this is it rounded to four figures.
 DT_FUSION_ENERGY_MEV: Final = 17.59
 #: Pascals in a bar.
 PASCALS_PER_BAR: Final = 1.0e5
@@ -72,7 +78,10 @@ def dt_molecule_mass_u() -> float:
         The two nuclear masses added, in atomic mass units. Equimolar
         fuel has the same mean molecular mass whether it is counted as
         DT molecules or as an equilibrium mixture of D2, DT and T2,
-        because the atom inventory is the same either way.
+        because the atom inventory is the same either way. The two
+        electrons of a molecule (about 0.0011 u, 2.2e-4 relative) are
+        left out: the gas density built on this is a one-figure
+        consistency instrument, and the specific energy counts nuclei.
     """
     return DEUTERON_MASS_U + TRITON_MASS_U
 

@@ -168,8 +168,8 @@ def test_the_plate_outweighs_the_fuel_it_drives() -> None:
 def test_the_full_burn_energies_bound_both_inventories() -> None:
     """Each inventory's complete burn, and nothing about what burns."""
     point = anchor_record().operating_point
-    assert point.slab_full_burn_energy_mj == pytest.approx(718.8192, rel=1e-6)
-    assert point.sphere_full_burn_energy_mj == pytest.approx(301.0983, rel=1e-6)
+    assert point.slab_full_burn_energy_mj == pytest.approx(718.8205, rel=1e-6)
+    assert point.sphere_full_burn_energy_mj == pytest.approx(301.0988, rel=1e-6)
     assert point.slab_full_burn_energy_mj > point.sphere_full_burn_energy_mj
 
 

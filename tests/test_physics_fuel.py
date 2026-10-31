@@ -49,7 +49,7 @@ from scpn_icf_impact_core.physics.fuel import (
 #: works in rather than the micrometres the configuration carries.
 MARSHALL_SPHERE_RADIUS_CM = 0.1
 #: Measured specific energy of the fuel, in gigajoules per gram.
-MEASURED_SPECIFIC_ENERGY_GJ_PER_G = 337.4738
+MEASURED_SPECIFIC_ENERGY_GJ_PER_G = 337.4744
 #: Measured mass of the printed sphere at the printed cryogenic density.
 MEASURED_MARSHALL_SPHERE_MASS_MG = 0.8922123
 #: Density the printed sphere mass implies instead.
@@ -209,7 +209,7 @@ def test_the_full_burn_energy_is_the_inventory_times_the_specific_energy() -> No
     assert full_burn_energy_mj(1.0e3) == pytest.approx(
         dt_specific_energy_j_per_g() / 1.0e6, rel=1e-15
     )
-    assert full_burn_energy_mj(2.13) == pytest.approx(718.8192, rel=1e-6)
+    assert full_burn_energy_mj(2.13) == pytest.approx(718.8205, rel=1e-6)
 
 
 @pytest.mark.parametrize("value", [0.01, 0.5, 0.999999])
@@ -326,3 +326,15 @@ def test_the_full_burn_energy_refuses_an_unusable_inventory(mass: float) -> None
     """An inventory that is not a positive mass is refused by name."""
     with pytest.raises(DeviceConfigurationError, match="fuel_mass_mg"):
         full_burn_energy_mj(mass)
+
+
+def test_the_nuclear_masses_are_one_named_edition() -> None:
+    """The mass unit and both nuclear masses are CODATA 2022.
+
+    The reference values are CODATA 2022 as SciPy 1.17.1 serves them. The
+    release is the CODATA 2022 Q-value, 17.5892 MeV, at four figures.
+    """
+    assert ATOMIC_MASS_UNIT_KG == 1.66053906892e-27
+    assert DEUTERON_MASS_U == 2.013553212544
+    assert TRITON_MASS_U == 3.01550071597
+    assert round(17.589247903765397, 2) == DT_FUSION_ENERGY_MEV
