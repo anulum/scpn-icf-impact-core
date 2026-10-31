@@ -77,8 +77,8 @@ from scpn_icf_impact_core.physics.projectile import (  # noqa: E402
 SCHEMA: Final = "scpn-icf-impact-core.level0-physics-benchmark.v1"
 NATIVE_STATUS: Final = (
     "unavailable: this package has no native crate; the level-0 kernels use "
-    "+ - * / and the platform pow (cubes) only, and the native decision of "
-    "audit plan Q01 awaits the owner"
+    "+ - * / and the platform pow (cubes) only, and the decision on a "
+    "native backend is open with the project owner"
 )
 
 
