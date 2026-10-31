@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-10-31T03:58:16.317815+00:00",
+  "label": "local",
+  "parameters": {
+    "points": 20000,
+    "record_points": 2000,
+    "repeats": 20,
+    "warmup": 3
+  },
+  "platform": {
+    "commit": "dc893f31fe1a276f1f2d9f6ff7cf57137cb4ae2c",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i5-11600K @ 3.90GHz",
+    "isolated_cores": false,
+    "load_average_1min_at_start": "4.58",
+    "machine": "x86_64",
+    "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3"
+  },
+  "results": [
+    {
+      "backend": "python_floor",
+      "name": "closed_forms",
+      "stats": {
+        "max_us_per_point": 1.7043053500000003,
+        "mean_us_per_point": 1.5934427225,
+        "min_us_per_point": 1.477025,
+        "p50_us_per_point": 1.59147825,
+        "p95_us_per_point": 1.68935825,
+        "p99_us_per_point": 1.7043053500000003,
+        "throughput_points_per_s": 628346.6330752557
+      },
+      "status": "measured"
+    },
+    {
+      "backend": "rust_native",
+      "name": "closed_forms",
+      "stats": null,
+      "status": "unavailable: this package has no native crate; the level-0 kernels use + - * / and the platform pow (cubes) only, and the native decision of audit plan Q01 awaits the owner"
+    },
+    {
+      "backend": "python_floor",
+      "name": "level0_record",
+      "stats": {
+        "max_us_per_point": 48.3734655,
+        "mean_us_per_point": 37.412051325,
+        "min_us_per_point": 34.099283,
+        "p50_us_per_point": 36.678802499999996,
+        "p95_us_per_point": 43.7905145,
+        "p99_us_per_point": 48.3734655,
+        "throughput_points_per_s": 27263.703606463165
+      },
+      "status": "measured"
+    },
+    {
+      "backend": "rust_native",
+      "name": "level0_record",
+      "stats": null,
+      "status": "unavailable: this package has no native crate; the level-0 kernels use + - * / and the platform pow (cubes) only, and the native decision of audit plan Q01 awaits the owner"
+    }
+  ],
+  "schema": "scpn-icf-impact-core.level0-physics-benchmark.v1"
+}
