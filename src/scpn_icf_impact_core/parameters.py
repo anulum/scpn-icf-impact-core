@@ -11,9 +11,9 @@
 The derived quantities implement standard mechanics and nothing more:
 the projectile kinetic energy ``E = m v^2 / 2`` and the specific kinetic
 energy ``e = v^2 / 2``. Both are rough consistency instruments with
-documented applicability bounds (impact-fusion projectile-velocity
-scale; Proc. Impact Fusion Workshop, LA-8000-C, 1979); no claim about
-any real machine follows from them.
+documented applicability bounds (the declared impact-fusion
+projectile-velocity floor; see the configuration module); no claim
+about any real machine follows from them.
 """
 
 from __future__ import annotations

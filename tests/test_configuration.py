@@ -72,6 +72,7 @@ def test_consistency_report_clean_and_finding() -> None:
     findings = slow.consistency_report()
     assert len(findings) == 1
     assert "entry scale" in findings[0].message
+    assert "declared impact-fusion entry scale" in findings[0].message
 
 
 def test_canonical_round_trip_and_digest() -> None:

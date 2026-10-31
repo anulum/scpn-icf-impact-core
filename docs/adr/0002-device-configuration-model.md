@@ -36,9 +36,11 @@ registry configuration this repository owns
    energy ``E = m v^2 / 2`` and the specific kinetic energy
    ``e = v^2 / 2``.
 4. Advisory finding, reported by `consistency_report()` and never
-   clamped: a projectile velocity below the ``~100 km/s`` scale that
-   impact-fusion studies identify as the entry regime (Proc. Impact
-   Fusion Workshop, Los Alamos report LA-8000-C, 1979).
+   clamped: a projectile velocity below a declared ``100 km/s`` floor.
+   The filed Proceedings of the Impact Fusion Workshop, Los Alamos
+   report LA-8000-C (1979), print a minimum projectile velocity of
+   200 km/s (PDF p. 3) and 130 km/s for three-dimensional compression
+   at a gain above 100 (PDF p. 4); the declared floor lies below both.
 5. Repository-level `evidence_maturity` = the highest state claimed by
    any capability entry; per-capability states are the authoritative
    claim surface.
@@ -57,3 +59,13 @@ registry configuration this repository owns
   clock identities, safety envelope) build on these types; maturity
   advances per capability only with the evidence the family standard
   requires.
+
+## Amendment 2026-10-31
+
+The ``~100 km/s`` floor was described as the scale that impact-fusion
+studies identify as the entry regime, credited to LA-8000-C. The filed
+proceedings print a minimum projectile velocity of 200 km/s (PDF p. 3)
+and 130 km/s for three-dimensional compression (PDF p. 4), not 100 km/s.
+The floor is now named declared, with those values quoted. Whether the
+floor should move to a printed value is a separate decision; no value or
+check changed here.

@@ -18,8 +18,8 @@ Outputs (written next to this script):
 
 - ``repo_header.png`` — the launcher, projectile and impact-shock
   target (used by ``README.md``).
-- ``repo_header_velocity_gate.png`` — the entry-scale threshold with
-  flagged and documented regions.
+- ``repo_header_velocity_gate.png`` — the declared entry-scale threshold
+  with flagged and accepted regions.
 - ``repo_header_momentum_chain.png`` — launch, free flight, impact and
   implosion as a sequence.
 
@@ -51,7 +51,7 @@ WIDTH_IN, HEIGHT_IN, DPI = 12.8, 6.4, 100
 
 TITLE_METRICS: list[tuple[str, str]] = [
     ("Device Configuration", "projectile_or_impact_icf"),
-    ("Velocity Gate", "below impact-fusion entry scale flagged"),
+    ("Velocity Gate", "below declared 100 km/s floor flagged"),
     ("Reference", "Impact Fusion Workshop, LA-8000-C (1979)"),
     ("Diagnostics & Clocks", "fail-closed vs pinned SPO catalogue"),
     ("Plan Envelope", "v1.1.0 · synthetic · review-only"),
@@ -355,7 +355,7 @@ def generate_velocity_gate() -> None:
     ax.text(
         x_entry,
         6.95,
-        "impact-fusion entry scale",
+        "declared entry floor",
         color=MAGENTA,
         fontsize=8.5,
         fontfamily="monospace",
@@ -378,7 +378,7 @@ def generate_velocity_gate() -> None:
     ax.text(
         (x_entry + 9.0) / 2,
         3.95,
-        "documented workshop regime",
+        "above declared floor",
         color=GREEN,
         fontsize=8,
         fontfamily="monospace",
@@ -405,7 +405,7 @@ def generate_velocity_gate() -> None:
     ax.text(
         5.0,
         1.35,
-        "the gate is one number: fast enough, or flagged · LA-8000-C (1979)",
+        "declared 100 km/s floor · LA-8000-C prints 200 km/s minimum",
         color="#445566",
         fontsize=8,
         fontfamily="monospace",
