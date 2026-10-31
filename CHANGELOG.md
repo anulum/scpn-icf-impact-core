@@ -56,6 +56,10 @@ SCPN ICF Impact Core — CHANGELOG
 
 ### Added
 
+- An installed-wheel job in the required CI gate: the wheel is built
+  without build isolation from hash-locked `setuptools` and `wheel`
+  (`requirements-build.txt`), installed into clean base and CAD environments
+  and exercised from outside the checkout by `tools/installed_package_check.py`.
 - Device 3D and CAD models (`device_3d_model`, `device_cad_model`,
   `computational_prototype`, ADR 0006): tier-G1 tessellated and tier-G2
   B-rep models of **both** target schemes the cited proceedings
