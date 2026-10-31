@@ -22,6 +22,7 @@ from typing import Any
 import pytest
 
 from scpn_icf_impact_core.configuration import (
+    IMPACT_VELOCITY_FLOOR_KM_S,
     DeviceConfiguration,
     RegistryBinding,
     configuration_from_bytes,
@@ -35,7 +36,7 @@ REGISTRY = RegistryBinding(version="1.0.0", digest_sha256="0" * 64)
 
 def synthetic_configuration(
     identifier: str = "projectile_or_impact_icf",
-    velocity_km_s: float = 150.0,
+    velocity_km_s: float = 250.0,
 ) -> DeviceConfiguration:
     """Build a valid synthetic configuration with optional overrides."""
     return DeviceConfiguration(
@@ -72,7 +73,20 @@ def test_consistency_report_clean_and_finding() -> None:
     findings = slow.consistency_report()
     assert len(findings) == 1
     assert "entry scale" in findings[0].message
-    assert "declared impact-fusion entry scale" in findings[0].message
+    assert "entry scale printed in LA-8000-C" in findings[0].message
+
+
+@pytest.mark.parametrize(
+    ("velocity_km_s", "expected_findings"),
+    [(199.9, 1), (200.0, 0), (150.0, 1), (130.0, 1)],
+)
+def test_entry_floor_is_the_printed_minimum(
+    velocity_km_s: float, expected_findings: int
+) -> None:
+    """The floor is 200 km/s, the minimum printed in LA-8000-C (PDF p. 3)."""
+    assert IMPACT_VELOCITY_FLOOR_KM_S == 200.0
+    findings = synthetic_configuration(velocity_km_s=velocity_km_s).consistency_report()
+    assert len(findings) == expected_findings
 
 
 def test_canonical_round_trip_and_digest() -> None:
@@ -187,7 +201,7 @@ def test_configuration_from_bytes_rejects_non_canonical_documents(
 def test_configuration_from_bytes_rejects_another_spelling_of_a_value() -> None:
     """Bytes must carry the canonical spelling of every number."""
     data = synthetic_configuration().canonical_bytes()
-    canonical = b'"velocity_km_s":150.0'
+    canonical = b'"velocity_km_s":250.0'
     assert data.count(canonical) == 1
     with pytest.raises(DeviceConfigurationError, match="non-canonical document"):
-        configuration_from_bytes(data.replace(canonical, b'"velocity_km_s":1.5e2'))
+        configuration_from_bytes(data.replace(canonical, b'"velocity_km_s":2.5e2'))

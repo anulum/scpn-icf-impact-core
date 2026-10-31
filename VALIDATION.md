@@ -82,10 +82,10 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
   extents — every rejection branch is tested.
 - The standard-mechanics relations `E = m v^2 / 2` and `e = v^2 / 2` as
   documented derived quantities, with an advisory finding for projectile
-  velocities below the declared impact-fusion entry floor 100 km/s (the
-  filed LA-8000-C proceedings print a minimum of 200 km/s, PDF p. 3, and
-  130 km/s for three-dimensional compression, PDF p. 4; the floor lies
-  below both), reported and never clamped.
+  velocities below the impact-fusion entry floor 200 km/s, the minimum
+  printed in the filed LA-8000-C proceedings (PDF p. 3; they also print
+  130 km/s for three-dimensional compression, PDF p. 4; the floor was a
+  declared 100 km/s until 2026-10-31), reported and never clamped.
 - Canonical serialisation (sorted keys, NaN/infinity rejected on both
   emit and parse), SHA-256 digest identity, and a strict round-trip
   parser that refuses unknown fields.

@@ -10,12 +10,11 @@
 
 A :class:`DeviceConfiguration` composes a validated projectile and
 target declaration under the single registry identifier this repository
-owns. A projectile velocity below a declared floor of 100 km/s is
-flagged. The floor is a modelling choice and lies below the values
-printed in the filed Proceedings of the Impact Fusion Workshop,
-LA-8000-C (1979): a minimum projectile velocity of 200 km/s (PDF p. 3)
-and 130 km/s for three-dimensional compression at a gain above 100 (PDF
-p. 4). Serialisation is canonical (sorted keys, no NaN or infinity
+owns. A projectile velocity below 200 km/s is flagged: the minimum
+projectile velocity printed in the filed Proceedings of the Impact
+Fusion Workshop, LA-8000-C (1979), preface, PDF p. 3. The same
+proceedings print 130 km/s for three-dimensional compression at a gain
+above 100 (PDF p. 4). Serialisation is canonical (sorted keys, no NaN or infinity
 accepted anywhere) and the SHA-256 digest of those bytes identifies the
 exact parameter set. The registry binding is a data pin only — this
 package never imports SCPN Phase Orchestrator code.
@@ -33,7 +32,7 @@ from scpn_icf_impact_core.errors import DeviceConfigurationError
 from scpn_icf_impact_core.parameters import Projectile, TargetDeclaration
 
 OWNED_CONFIGURATIONS: Final = ("projectile_or_impact_icf",)
-IMPACT_VELOCITY_FLOOR_KM_S: Final = 100.0
+IMPACT_VELOCITY_FLOOR_KM_S: Final = 200.0
 HEX_DIGEST: Final = re.compile(r"^[0-9a-f]{64}$")
 
 
@@ -138,9 +137,9 @@ class DeviceConfiguration:
         Returns
         -------
         tuple of ConsistencyFinding
-            Advisory findings from the declared estimates; empty when
-            the projectile velocity reaches the declared impact-fusion
-            entry scale. Findings are advisory instruments, not machine
+            Advisory findings from the printed estimate; empty when
+            the projectile velocity reaches the impact-fusion entry
+            scale printed in LA-8000-C. Findings are advisory instruments, not machine
             claims.
         """
         findings: list[ConsistencyFinding] = []
@@ -151,7 +150,7 @@ class DeviceConfiguration:
                     field="projectile.velocity_km_s",
                     message=(
                         f"projectile velocity {velocity:.1f} km/s is below "
-                        f"the declared impact-fusion entry scale "
+                        f"the impact-fusion entry scale printed in LA-8000-C "
                         f"{IMPACT_VELOCITY_FLOOR_KM_S:.0f} km/s"
                     ),
                 )

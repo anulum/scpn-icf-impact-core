@@ -36,11 +36,11 @@ registry configuration this repository owns
    energy ``E = m v^2 / 2`` and the specific kinetic energy
    ``e = v^2 / 2``.
 4. Advisory finding, reported by `consistency_report()` and never
-   clamped: a projectile velocity below a declared ``100 km/s`` floor.
-   The filed Proceedings of the Impact Fusion Workshop, Los Alamos
-   report LA-8000-C (1979), print a minimum projectile velocity of
-   200 km/s (PDF p. 3) and 130 km/s for three-dimensional compression
-   at a gain above 100 (PDF p. 4); the declared floor lies below both.
+   clamped: a projectile velocity below ``200 km/s``, the minimum
+   projectile velocity printed in the filed Proceedings of the Impact
+   Fusion Workshop, Los Alamos report LA-8000-C (1979), PDF p. 3; the
+   same proceedings print 130 km/s for three-dimensional compression at
+   a gain above 100 (PDF p. 4).
 5. Repository-level `evidence_maturity` = the highest state claimed by
    any capability entry; per-capability states are the authoritative
    claim surface.
@@ -69,3 +69,11 @@ and 130 km/s for three-dimensional compression (PDF p. 4), not 100 km/s.
 The floor is now named declared, with those values quoted. Whether the
 floor should move to a printed value is a separate decision; no value or
 check changed here.
+
+## Amendment 2026-10-31 (second)
+
+On the owner's order the floor moves from the declared 100 km/s to the
+printed 200 km/s minimum (LA-8000-C, preface, PDF p. 3). Configurations
+between 100 and 200 km/s are now flagged; the printed anchor at
+200 km/s is not. The finding says "the impact-fusion entry scale
+printed in LA-8000-C".
